@@ -10,6 +10,8 @@ export default function Navbar() {
     const navLinks = [
         { label: "Home", href: "/" },
         { label: "Convert", href: "/convert" },
+        { label: "Translate", href: "/translate" },
+        { label: "Pdf", href: "/extract" },
     ];
 
     useEffect(() => {
