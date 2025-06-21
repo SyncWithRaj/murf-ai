@@ -11,7 +11,8 @@ export default function Navbar() {
         { label: "Home", href: "/" },
         { label: "Convert", href: "/convert" },
         { label: "Translate", href: "/translate" },
-        { label: "Pdf", href: "/extract" },
+        { label: "Extract", href: "/extract" },
+        { label: "Summarize", href: "/summarize" },
     ];
 
     useEffect(() => {
