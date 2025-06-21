@@ -95,12 +95,13 @@ export default function ExtractTextPage() {
           </p>
         )}
 
+        <div className="text-left my-2 text-gray-500 dark:text-gray-400 font-medium">Note: Select PDF file that contains text only, PDFs with images are not allowed</div>
 
         {/* Extract Button */}
         <button
           onClick={handleExtract}
           disabled={loading || !pdfFile}
-          className={`mb-6 w-full py-3 mt-3 text-lg font-semibold rounded-xl text-white transition-all duration-200 ${loading || !pdfFile
+          className={`mb-6 w-full py-3 text-lg font-semibold rounded-xl text-white transition-all duration-200 ${loading || !pdfFile
             ? "bg-gray-400 cursor-not-allowed"
             : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-md"
             }`}

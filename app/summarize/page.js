@@ -124,7 +124,7 @@ export default function SummarizePage() {
                   onClick={() => router.push("/convert")}
                   className="flex-1 py-2 text-base font-semibold rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md transition-all duration-200"
                 >
-                  🔊 Convert to Voice
+                  🔊 Convert to Voice (MP3)
                 </button>
               </div>
             )}
