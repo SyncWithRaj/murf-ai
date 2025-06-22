@@ -43,8 +43,9 @@ export default function Home() {
             LearnAudibly
           </h1>
         </div>
-        <p className="text-xl mb-8 text-gray-200 max-w-6xl mx-auto leading-relaxed">
-          LearnAudibly gives you the power to convert your study materials into lucid audiobooks using a synthetic Murf AI voice. Translate text in an online interface across multiple languages, extract content from PDFs, and promote said content into spoken word-the entire journey effortlessly. Their smart summarizer takes a piece of lengthy content and produces crisp text bites that you can copy and then convert into mp3 or translate-this is awesome while on the way, backing faster, or multitasking on the side.
+        <p className="text-xl mb-8 text-gray-200 max-w-5xl mx-auto leading-relaxed">
+          LearnAudibly uses AI to convert text (from PDFs, websites, etc.) into audiobooks in multiple languages, offering summarization and easy translation for efficient study, even while multitasking.
+
           <br />
           Study less, learn more - anytime, anywhere.
         </p>
