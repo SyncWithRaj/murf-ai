@@ -32,3 +32,13 @@ body {
   transform: translateY(-6px);
   box-shadow: 0 10px 25px rgba(168, 85, 247, 0.25);
 }
+
+/* You can use like this in CSS if needed */
+body {
+  font-family: var(--font-geist-sans);
+}
+
+/* Example for Poppins */
+h1, h2 {
+  font-family: var(--font-poppins);
+}
