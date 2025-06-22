@@ -13,24 +13,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// ✅ This will apply <meta name="theme-color" content="#1e1b4b" /> in head
 export const metadata = {
   title: "LearnAudibly",
   description: "Convert text to audio & more with Murf AI",
-  themeColor: "#1e1b4b", // Sets mobile browser bar color
+  themeColor: "#1e1b4b",
   viewport: "width=device-width, initial-scale=1",
   icons: {
-    icon: "/favicon.ico", // optional: set your favicon
+    icon: "/favicon.ico",
   },
+  manifest: "/manifest.json", // Optional, if you create manifest.json for PWA
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Fallback if metadata.themeColor doesn’t apply */}
-        <meta name="theme-color" content="#1e1b4b" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>
           <Navbar />
