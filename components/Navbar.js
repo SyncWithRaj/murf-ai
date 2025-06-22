@@ -12,6 +12,7 @@ export default function Navbar() {
         { label: "Convert", href: "/convert" },
         { label: "Translate", href: "/translate" },
         { label: "Extract", href: "/extract" },
+        { label: "Dubbing", href: "/dub" },
         { label: "Summarize", href: "/summarize" },
     ];
 
@@ -33,9 +34,9 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Links */}
-                <div className="hidden lg:flex space-x-8 text-sm items-center">
+                <div className="hidden lg:flex space-x-2 text-sm items-center">
                     {navLinks.map((link) => (
-                        <Link key={link.href} href={link.href} className="relative px-3 py-2 rounded-lg text-white/90 hover:text-white transition duration-200 hover:bg-white/10 hover:shadow-md text-lg font-semibold">
+                        <Link key={link.href} href={link.href} className="relative px-2 py-2 rounded-lg text-white/90 hover:text-white transition duration-200 hover:bg-white/10 hover:shadow-md text-lg font-semibold">
                             {link.label}
                         </Link>
                     ))}

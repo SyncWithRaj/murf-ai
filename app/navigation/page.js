@@ -37,6 +37,12 @@ const pages = [
         icon: <Sparkles size={36} />,
         desc: 'Use AI to summarize lengthy notes or articles.',
     },
+    {
+        label: 'Murf Video Dubbing',
+        href: '/dub',
+        icon: <Sparkles size={36} />,
+        desc: 'Dubbing video from default language to Selected language.',
+    },
 ];
 
 export default function NavigationPage() {

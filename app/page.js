@@ -73,7 +73,7 @@ export default function Home() {
           <FeatureCard icon={<PlayCircle size={36} />} title="Audio Player with Controls" desc="Built-in audio player with timestamped sections and skip controls." />
           <FeatureCard icon={<Brain size={36} />} title="Smart Multitasking" desc="Listen while you revise, walk, cook, or travel - hands-free learning!" />
           <FeatureCard icon={<TextQuote size={36} />} title="Natural Language Output" desc="Outputs feel like a real person is reading - not robotic tones." />
-          <FeatureCard icon={<BookOpenCheck size={36} />} title="Bookmarking (coming soon)" desc="Save where you stopped listening - resume anytime without hassle." />
+          <FeatureCard icon={<BookOpenCheck size={36} />} title="Video Dubbing" desc="Dub a video in language that prefers you with murfAI" />
           <FeatureCard icon={<Sparkle size={36} />} title="Minimal, Clean UI" desc="No distractions. Just upload, summarize, listen, and learn effortlessly." />
         </div>
       </section>
