@@ -79,8 +79,9 @@ export default function Home() {
           </div>
           <p className="text-lg text-gray-300 mb-8 leading-relaxed">
             LearnAudibly is built for learners, professionals, and anyone who wants to consume content without staring at screens.
-            Whether you're on the go or just tired of reading, our AI tools make learning smooth, human-like, and engaging.
+            Whether you&apos;re on the go or just tired of reading, our AI tools make learning smooth, human-like, and engaging.
           </p>
+
           <Link href="/navigation">
             <button className=" cursor-pointer bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl shadow-md transition-all text-lg font-semibold">
               Try It Now
