@@ -63,7 +63,7 @@ export default function SummarizePage() {
 
   return (
     <div
-      className={`min-h-[91.2vh] transition-all duration-500 p-6 flex items-center justify-center 
+      className={`min-h-[89.8vh] transition-all duration-500 p-6 flex items-center justify-center 
         ${darkMode
           ? "bg-gradient-to-br from-[#1f1c2c] via-[#302b63] to-[#24243e] text-white"
           : "bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800"

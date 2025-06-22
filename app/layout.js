@@ -21,7 +21,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* 👇 Apply theme using className */}
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>
           <Navbar />

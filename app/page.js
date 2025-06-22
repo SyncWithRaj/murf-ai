@@ -13,6 +13,7 @@ import {
   Sun, Moon
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import Image from "next/image";
 
 
 export default function Home() {
@@ -31,7 +32,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="text-center py-24 px-6">
         <div className="flex justify-center items-center gap-3 mb-4">
-          <Brain size={40} className="text-purple-300" />
+          <Image
+            src="/logo.png"     // ✅ must start with `/` (from public)
+            alt="LearnAudibly Logo"
+            width={50}         // ✅ required
+            height={50}        // ✅ required
+            className="rounded-xl shadow-lg"  // optional styling
+          />
           <h1 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-blue-400 drop-shadow-lg">
             LearnAudibly
           </h1>

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
@@ -25,18 +26,24 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`sticky top-0 z-50 transition-all duration-300 ${
-                scrolled
-                    ? "backdrop-blur-md bg-[#1f1c2c]/70 shadow-xl border-b border-white/10"
-                    : "bg-gradient-to-r from-[#1f1c2c] via-[#302b63] to-[#24243e]"
-            } text-white font-medium`}
+            className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
+                ? "backdrop-blur-md bg-[#1f1c2c]/70 shadow-xl border-b border-white/10"
+                : "bg-gradient-to-r from-[#1f1c2c] via-[#302b63] to-[#24243e]"
+                } text-white font-medium`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
                 {/* Logo */}
                 <Link
                     href="/"
-                    className="text-3xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-blue-400 hover:brightness-110 transition-all duration-300"
+                    className="text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-300 to-blue-400 hover:brightness-110 transition-all duration-300 flex gap-1 py-2"
                 >
+                    <Image
+                        src="/logo.png"     // ✅ must start with `/` (from public)
+                        alt="LearnAudibly Logo"
+                        width={40}         // ✅ required
+                        height={30}        // ✅ required
+                        className="rounded-xl shadow-lg"  // optional styling
+                    />
                     LearnAudibly
                 </Link>
 
