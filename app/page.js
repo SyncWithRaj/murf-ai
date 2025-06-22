@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import Image from "next/image";
+import SocialLinks from "@/components/SocialLinks";
 
 
 export default function Home() {
@@ -101,8 +102,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="text-center py-6 text-sm text-gray-400 border-t border-white/10">
-        © {new Date().getFullYear()} LearnAudibly — Made with ❤️ by Raj
+      <footer className="text-center py-6 text-md text-gray-400 border-t border-white/10">
+        <div className="flex flex-col-reverse items-center gap-3 sm:flex-row sm:justify-around sm:px-8">
+          <div>
+            © {new Date().getFullYear()} LearnAudibly — Made with ❤️ by Raj
+          </div>
+          <SocialLinks />
+        </div>
       </footer>
     </div>
   );

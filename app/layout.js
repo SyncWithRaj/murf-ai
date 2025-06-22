@@ -16,15 +16,25 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "LearnAudibly",
   description: "Convert text to audio & more with Murf AI",
+  themeColor: "#1e1b4b", // Sets mobile browser bar color
+  viewport: "width=device-width, initial-scale=1",
+  icons: {
+    icon: "/favicon.ico", // optional: set your favicon
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Fallback if metadata.themeColor doesn’t apply */}
+        <meta name="theme-color" content="#1e1b4b" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>
           <Navbar />
-            {children}
+          {children}
         </ThemeProvider>
       </body>
     </html>
