@@ -48,7 +48,7 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Links */}
-                <div className="hidden md:flex space-x-8 text-sm items-center">
+                <div className="hidden lg:flex space-x-8 text-sm items-center">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
@@ -63,7 +63,7 @@ export default function Navbar() {
                 {/* Hamburger */}
                 <button
                     onClick={() => setOpen(!open)}
-                    className="md:hidden text-white p-2 rounded-md hover:bg-white/10 hover:shadow-sm transition-all duration-200"
+                    className="lg:hidden text-white p-2 rounded-md hover:bg-white/10 hover:shadow-sm transition-all duration-200"
                 >
                     {open ? <X size={28} /> : <Menu size={28} />}
                 </button>
@@ -71,7 +71,7 @@ export default function Navbar() {
 
             {/* Mobile Links */}
             {open && (
-                <div className="md:hidden px-4 pb-4 transition-all duration-300">
+                <div className="lg:hidden px-4 pb-4 transition-all duration-300">
                     <div className="bg-white/10 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 p-4 space-y-3">
                         {navLinks.map((link) => (
                             <Link
