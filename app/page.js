@@ -43,10 +43,12 @@ export default function Home() {
             LearnAudibly
           </h1>
         </div>
-        <p className="text-xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-          Convert your study notes or PDFs into natural-sounding audio with Murf AI.
-          Learn smarter - anywhere, anytime, hands-free!
+        <p className="text-xl mb-8 text-gray-200 max-w-6xl mx-auto leading-relaxed">
+          LearnAudibly gives you the power to convert your study materials into lucid audiobooks using a synthetic Murf AI voice. Translate text in an online interface across multiple languages, extract content from PDFs, and promote said content into spoken word-the entire journey effortlessly. Their smart summarizer takes a piece of lengthy content and produces crisp text bites that you can copy and then convert into mp3 or translate-this is awesome while on the way, backing faster, or multitasking on the side.
+          <br />
+          Study less, learn more - anytime, anywhere.
         </p>
+
         <Link href="/navigation">
           <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-purple-500/30 transition-all text-lg font-semibold cursor-pointer">
             Get Started
@@ -86,7 +88,7 @@ export default function Home() {
           </div>
           <p className="text-lg text-gray-300 mb-8 leading-relaxed">
             LearnAudibly is built for learners, professionals, and anyone who wants to consume content without staring at screens.
-            Whether you&apos;re on the go or just tired of reading, our AI tools make learning smooth, human-like, and engaging.
+            Whether you&apos;re on the go or just tired of reading, our AI tools make learning smooth, human-like and engaging.
           </p>
 
           <Link href="/navigation">
