@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Download, ClipboardCopy, Sun, Moon } from "lucide-react";
 import jsPDF from "jspdf";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -9,6 +9,8 @@ export default function SummarizePage() {
   const [inputText, setInputText] = useState("");
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
+    const [darkMode, setDarkMode] = useState(true);
+
   const [showRedirectButtons, setShowRedirectButtons] = useState(false);
   const router = useRouter();
 
@@ -60,16 +62,30 @@ export default function SummarizePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-black p-6 text-gray-900 dark:text-white">
-      <Toaster position="top-right" reverseOrder={false} />
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 shadow-2xl rounded-3xl p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <Sparkles className="w-6 h-6 text-yellow-500" />
-          <h1 className="text-3xl font-extrabold tracking-tight">AI Text Summarizer</h1>
+    <div
+      className={`min-h-[91.2vh] transition-all duration-500 p-6 flex items-center justify-center 
+        ${darkMode
+          ? "bg-gradient-to-br from-[#1f1c2c] via-[#302b63] to-[#24243e] text-white"
+          : "bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800"
+        }`}
+    >
+      <Toaster position="top-right" />
+
+
+      <div className={`max-w-3xl w-full rounded-3xl p-8 shadow-2xl transition-all duration-500 ${darkMode ? "bg-gray-900 border border-gray-700" : "bg-white"}`}>
+        <div className="flex items-center gap-3 mb-6 justify-center">
+          <Sparkles className="w-9 h-9 text-purple-600 dark:text-purple-400" />
+          <h1 className={`text-4xl font-extrabold text-center ${darkMode ? "text-purple-300" : "text-blue-700"}`}>
+            AI Text Summarizer
+          </h1>
         </div>
 
         <textarea
-          className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-yellow-500 outline-none transition-all mb-6 resize-none"
+          className={`w-full p-4 rounded-xl border mb-6 resize-none outline-none transition-all duration-300 
+          ${darkMode
+              ? "bg-gray-800 border-gray-600 text-white focus:ring-yellow-500"
+              : "bg-white border-gray-300 text-gray-900 focus:ring-yellow-400"
+            }`}
           rows={8}
           placeholder="Paste the text you want summarized..."
           value={inputText}
@@ -79,52 +95,60 @@ export default function SummarizePage() {
         <button
           onClick={handleSummarize}
           disabled={loading}
-          className={`w-full py-3 text-lg font-semibold rounded-xl text-white transition-all duration-200 ${
-            loading
+          className={`w-full py-3 text-lg font-semibold rounded-xl text-white transition-all duration-200 
+          ${loading
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 shadow-md"
-          }`}
+              : darkMode
+                ? "bg-purple-600 hover:bg-purple-700"
+                : "bg-purple-500 hover:bg-purple-600"
+            }`}
         >
           {loading ? "Summarizing..." : "Summarize"}
         </button>
 
         {summary && (
-          <div className="mt-8">
-            <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-inner text-sm whitespace-pre-wrap leading-relaxed">
-              <h2 className="text-lg font-semibold mb-2 text-yellow-600 dark:text-yellow-300">Summary</h2>
+          <div className="mt-8 space-y-4">
+            <div className={`p-6 rounded-xl shadow-inner whitespace-pre-wrap leading-relaxed transition-all
+            ${darkMode
+                ? "bg-gray-800 text-yellow-100 border border-gray-700"
+                : "bg-gray-50 text-gray-800 border border-gray-200"
+              }`}>
+              <h2 className={`text-lg font-semibold mb-2 ${darkMode ? "text-yellow-300" : "text-yellow-600"}`}>
+                Summary
+              </h2>
               {summary}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 mt-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={downloadAsPDF}
-                className="flex-1 py-2 text-base font-semibold rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-md transition-all duration-200"
+                className="flex-1 flex items-center justify-center gap-2 py-2 text-base font-semibold rounded-xl text-white shadow-md transition-all bg-green-600 hover:bg-green-700"
               >
-                📄 Download as PDF
+                <Download size={18} /> PDF
               </button>
 
               <button
                 onClick={copyToClipboard}
-                className="flex-1 py-2 text-base font-semibold rounded-xl bg-gradient-to-r from-blue-500 to-sky-500 hover:from-blue-600 hover:to-sky-600 text-white shadow-md transition-all duration-200"
+                className="flex-1 flex items-center justify-center gap-2 py-2 text-base font-semibold rounded-xl text-white shadow-md transition-all bg-blue-600 hover:bg-blue-700"
               >
-                📋 Copy Summary
+                <ClipboardCopy size={18} /> Copy
               </button>
             </div>
 
             {showRedirectButtons && (
-              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+              <div className="flex flex-col sm:flex-row gap-4 mt-2">
                 <button
                   onClick={() => router.push("/translate")}
-                  className="flex-1 py-2 text-base font-semibold rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white shadow-md transition-all duration-200"
+                  className="flex-1 py-2 text-base font-semibold rounded-xl text-white bg-purple-600 hover:bg-purple-700 transition shadow-md"
                 >
-                  🌐 Translate This
+                  Translate This
                 </button>
 
                 <button
                   onClick={() => router.push("/convert")}
-                  className="flex-1 py-2 text-base font-semibold rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-md transition-all duration-200"
+                  className="flex-1 py-2 text-base font-semibold rounded-xl text-white bg-pink-600 hover:bg-pink-700 transition shadow-md"
                 >
-                  🔊 Convert to Voice (MP3)
+                  Convert to Voice (MP3)
                 </button>
               </div>
             )}

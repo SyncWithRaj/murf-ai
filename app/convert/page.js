@@ -1,7 +1,12 @@
-"use client";
+'use client';
 import { useState, useRef, useEffect } from "react";
-import { Sun, Moon, Download, Play, Pause } from "lucide-react";
-import { FastForward, Rewind } from "lucide-react";
+import {
+    Sun, Moon, Download, Play, Pause,
+    FastForward, Rewind,
+    PlayIcon,
+    PlayCircle
+} from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export default function ConvertPage() {
@@ -10,9 +15,17 @@ export default function ConvertPage() {
     const [style, setStyle] = useState("Promo");
     const [audioUrl, setAudioUrl] = useState("");
     const [loading, setLoading] = useState(false);
-    const [darkMode, setDarkMode] = useState(true);
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
+
+    const handleConvertClick = () => {
+        if (!text) {
+            toast.error("Please enter some text first!");
+            return;
+        }
+
+        handleConvert(); // Your original conversion logic
+    };
 
     const audioRef = useRef(null);
 
@@ -48,7 +61,6 @@ export default function ConvertPage() {
         const secs = Math.floor(seconds % 60);
         return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
     }
-
 
     const handleDownload = async () => {
         const response = await fetch(audioUrl);
@@ -99,37 +111,30 @@ export default function ConvertPage() {
         };
     }, []);
 
+    const [darkMode, setDarkMode] = useState(true);
+
     return (
         <div
-            className={`min-h-screen transition-all duration-500 ${darkMode
-                ? "bg-gradient-to-br from-gray-900 to-gray-800 text-white"
-                : "bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800"
-                } p-6 flex items-center justify-center`}
+            className={`min-h-[91.2vh] transition-all duration-500 p-6 flex items-center justify-center 
+        ${darkMode
+                    ? "bg-gradient-to-br from-[#1f1c2c] via-[#302b63] to-[#24243e] text-white"
+                    : "bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800"
+                }`}
         >
-            <div className="absolute top-4 right-6">
-                <button
-                    onClick={() => setDarkMode(!darkMode)}
-                    className="bg-white dark:bg-gray-700 shadow-md rounded-full p-2 transition-all"
-                >
-                    {darkMode ? <Sun size={20} className="text-yellow-300" /> : <Moon size={20} />}
-                </button>
-            </div>
-
-            <div
-                className={`rounded-3xl p-8 max-w-xl w-full shadow-2xl transition-all duration-500 ${darkMode ? "bg-gray-900 border border-gray-700" : "bg-white"
-                    }`}
-            >
-                <h1
-                    className={`text-4xl font-extrabold text-center mb-6 ${darkMode ? "text-purple-300" : "text-blue-700"
-                        }`}
-                >
-                    🗣️ LearnAudibly
-                </h1>
+            <Toaster position="top-right" reverseOrder={false} />
+            <div className={`rounded-3xl p-8 max-w-3xl w-full shadow-2xl transition-all duration-500 ${darkMode ? "bg-gray-900 border border-gray-700" : "bg-white"}`}>
+                <div className="flex justify-center items-center gap-3 mb-6">
+                    <PlayCircle size={35} className="text-purple-300 mt-1" />
+                    <h1 className={`text-4xl font-extrabold text-center ${darkMode ? "text-purple-300" : "text-blue-700"}`}>
+                        Text to Speech
+                    </h1>
+                </div>
 
                 <textarea
-                    className={`w-full p-4 rounded-xl mb-4 resize-none border transition-all duration-300 outline-none ${darkMode
-                        ? "bg-gray-800 border-gray-600 text-white focus:ring-purple-500"
-                        : "bg-white border-gray-300 text-gray-900 focus:ring-blue-400"
+                    className={`w-full p-4 rounded-xl mb-4 resize-none border outline-none transition-all duration-300 
+            ${darkMode
+                            ? "bg-gray-800 border-gray-600 text-white focus:ring-purple-500"
+                            : "bg-white border-gray-300 text-gray-900 focus:ring-blue-400"
                         }`}
                     rows={6}
                     placeholder="Paste your study notes here..."
@@ -140,11 +145,13 @@ export default function ConvertPage() {
                     }}
                 />
 
+                {/* Dropdowns */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <select
-                        className={`p-3 rounded-xl outline-none transition-all duration-300 ${darkMode
-                            ? "bg-gray-800 border border-gray-600 text-white focus:ring-purple-500"
-                            : "bg-white border border-gray-300 text-gray-900 focus:ring-blue-400"
+                        className={`p-3 rounded-xl outline-none transition-all duration-300 
+              ${darkMode
+                                ? "bg-gray-800 border border-gray-600 text-white"
+                                : "bg-white border border-gray-300 text-gray-900"
                             }`}
                         value={voice}
                         onChange={(e) => setVoice(e.target.value)}
@@ -158,9 +165,10 @@ export default function ConvertPage() {
                     </select>
 
                     <select
-                        className={`p-3 rounded-xl outline-none transition-all duration-300 ${darkMode
-                            ? "bg-gray-800 border border-gray-600 text-white focus:ring-purple-500"
-                            : "bg-white border border-gray-300 text-gray-900 focus:ring-blue-400"
+                        className={`p-3 rounded-xl outline-none transition-all duration-300 
+              ${darkMode
+                                ? "bg-gray-800 border border-gray-600 text-white"
+                                : "bg-white border border-gray-300 text-gray-900"
                             }`}
                         value={style}
                         onChange={(e) => setStyle(e.target.value)}
@@ -170,22 +178,25 @@ export default function ConvertPage() {
                     </select>
                 </div>
 
+                {/* Convert Button */}
                 <button
-                    onClick={handleConvert}
-                    disabled={loading || !text}
-                    className={`transition-all duration-200 text-white px-4 py-3 rounded-xl w-full font-semibold shadow-md ${loading || !text
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : darkMode
-                            ? "bg-purple-600 hover:bg-purple-700"
-                            : "bg-blue-600 hover:bg-blue-700"
+                    onClick={handleConvertClick}
+                    disabled={loading}
+                    className={`transition-all duration-200 text-white px-4 py-3 rounded-xl w-full font-semibold shadow-md 
+    ${loading
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : darkMode
+                                ? "bg-purple-600 hover:bg-purple-700"
+                                : "bg-blue-600 hover:bg-blue-700"
                         }`}
                 >
-                    {loading ? "Converting..." : "🎧 Generate Audio"}
+                    {loading ? "Converting..." : "Generate Audio"}
                 </button>
 
+
+                {/* Audio Player */}
                 {audioUrl && (
-                    <div className="mt-6 p-4 rounded-xl shadow-inner bg-opacity-50">
-                        {/* Hidden Native Audio */}
+                    <div className="mt-6 p-4 rounded-xl shadow-inner bg-white/5 backdrop-blur-md border border-white/10 space-y-4">
                         <audio
                             ref={audioRef}
                             src={audioUrl}
@@ -193,92 +204,56 @@ export default function ConvertPage() {
                             className="hidden"
                         />
 
-                        {/* Custom Audio Player */}
-                        <div className="space-y-4 w-full">
-                            {/* Hidden Native Audio */}
-                            <audio
-                                ref={audioRef}
-                                src={audioUrl}
-                                onTimeUpdate={handleTimeUpdate}
-                                onLoadedMetadata={handleTimeUpdate}
-                                className="hidden"
-                            />
+                        {/* Controls */}
+                        <div className="flex justify-center items-center gap-6">
+                            <button onClick={() => (audioRef.current.currentTime -= 10)} className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition-shadow shadow-md">
+                                <Rewind size={20} />
+                            </button>
 
-                            {/* Control Buttons */}
-                            <div className="space-y-4 w-full">
-                                {/* Control Buttons */}
-                                <div className="flex justify-center items-center gap-6">
-                                    <button
-                                        onClick={() => {
-                                            const audio = audioRef.current;
-                                            if (audio) audio.currentTime = Math.max(0, audio.currentTime - 10);
-                                        }}
-                                        className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition-shadow shadow-md"
-                                    >
-                                        <Rewind size={20} />
-                                    </button>
+                            <button
+                                onClick={toggleAudio}
+                                className={`p-4 rounded-full shadow-md text-white hover:scale-110 transition-all duration-200 
+                  ${darkMode ? "bg-purple-600 hover:bg-purple-700" : "bg-blue-500 hover:bg-blue-600"}`}
+                            >
+                                {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+                            </button>
 
-                                    <button
-                                        onClick={toggleAudio}
-                                        className={`p-4 rounded-full shadow-md text-white hover:scale-110 transition-all duration-200 ${darkMode
-                                                ? "bg-purple-600 hover:bg-purple-700"
-                                                : "bg-blue-500 hover:bg-blue-600"
-                                            }`}
-                                    >
-                                        {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-                                    </button>
-
-                                    <button
-                                        onClick={() => {
-                                            const audio = audioRef.current;
-                                            if (audio) audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
-                                        }}
-                                        className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition-shadow shadow-md"
-                                    >
-                                        <FastForward size={20} />
-                                    </button>
-                                </div>
-
-                                {/* Progress + Timestamp */}
-                                <div className="flex items-center gap-3">
-                                    <span className="text-xs font-mono w-12 text-right text-gray-400">
-                                        {formatTime(audioRef.current?.currentTime || 0)}
-                                    </span>
-
-                                    <input
-                                        type="range"
-                                        min="0"
-                                        max="100"
-                                        value={progress}
-                                        onChange={handleSeek}
-                                        className={`w-full h-2 rounded-lg appearance-none cursor-pointer 
-        bg-gradient-to-r from-purple-500 to-blue-500 
-        [&::-webkit-slider-thumb]:appearance-none 
-        [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 
-        [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white 
-        [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:transition 
-        [&::-webkit-slider-thumb]:hover:scale-125
-        [&::-moz-range-thumb]:appearance-none 
-        [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 
-        [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-white 
-        [&::-moz-range-thumb]:shadow-md`}
-                                    />
-
-                                    <span className="text-xs font-mono w-12 text-left text-gray-400">
-                                        {formatTime(audioRef.current?.duration || 0)}
-                                    </span>
-                                </div>
-                            </div>
-
+                            <button onClick={() => (audioRef.current.currentTime += 10)} className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white transition-shadow shadow-md">
+                                <FastForward size={20} />
+                            </button>
                         </div>
 
+                        {/* Progress Bar */}
+                        <div className="flex items-center gap-3">
+                            <span className="text-xs font-mono w-12 text-right text-gray-400">
+                                {formatTime(audioRef.current?.currentTime || 0)}
+                            </span>
 
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                value={progress}
+                                onChange={handleSeek}
+                                className="w-full h-2 rounded-lg appearance-none cursor-pointer 
+                bg-gradient-to-r from-purple-500 to-blue-500 
+                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 
+                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-md 
+                [&::-webkit-slider-thumb]:hover:scale-125"
+                            />
+
+                            <span className="text-xs font-mono w-12 text-left text-gray-400">
+                                {formatTime(audioRef.current?.duration || 0)}
+                            </span>
+                        </div>
+
+                        {/* Download Button */}
                         <button
                             onClick={handleDownload}
-                            className={`mt-4 w-full flex items-center justify-center gap-2 text-center py-2 rounded-lg font-semibold transition-all group ${darkMode
-                                ? "bg-green-700 hover:bg-green-800 text-white"
-                                : "bg-green-600 hover:bg-green-700 text-white"
-                                }`}
+                            className={`mt-2 w-full flex items-center justify-center gap-2 py-2 rounded-lg font-semibold transition-all group 
+                ${darkMode
+                                    ? "bg-green-700 hover:bg-green-800 text-white"
+                                    : "bg-green-600 hover:bg-green-700 text-white"}`}
                         >
                             <Download size={18} />
                             <span className="group-hover:scale-105 transition-transform">Download Audio</span>

@@ -1,12 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import {
-  Volume2,
-  Languages,
-  MessageSquareText,
-  Download,
-  ClipboardCopy,
-  VideoIcon,
+  Volume2, Languages, MessageSquareText, Download,
+  ClipboardCopy, VideoIcon, Sun, Moon
 } from "lucide-react";
 import jsPDF from "jspdf";
 import toast, { Toaster } from "react-hot-toast";
@@ -18,6 +14,8 @@ export default function TranslatePage() {
   const [loading, setLoading] = useState(false);
   const [voices, setVoices] = useState([]);
   const [copiedIndexes, setCopiedIndexes] = useState([]);
+    const [darkMode, setDarkMode] = useState(true);
+
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.speechSynthesis) {
@@ -93,15 +91,27 @@ export default function TranslatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white dark:from-gray-900 dark:to-black py-12 px-6 text-gray-800 dark:text-white">
-      <Toaster position="top-right" reverseOrder={false} />
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 transition-all">
-        <h1 className="text-4xl font-extrabold text-purple-700 dark:text-purple-400 mb-6 text-center">
-          🌍 Translate Text
-        </h1>
+    <div
+      className={`min-h-[91.2vh] transition-all duration-500 p-6 flex items-center justify-center 
+        ${darkMode
+          ? "bg-gradient-to-br from-[#1f1c2c] via-[#302b63] to-[#24243e] text-white"
+          : "bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800"
+        }`}
+    >
+      <Toaster position="top-right" />
+      <div className={`rounded-3xl p-8 max-w-3xl w-full shadow-2xl transition-all duration-500 ${darkMode ? "bg-gray-900 border border-gray-700" : "bg-white"}`}>
+        <div className="flex items-center gap-2 justify-center mb-6">
+          <Languages className={`w-8 h-8 ${darkMode ? "text-purple-300" : "text-blue-700"}`} />
+          <h1 className={`text-4xl font-extrabold text-center ${darkMode ? "text-purple-300" : "text-blue-700"}`}>
+            Translate Text
+          </h1>
+        </div>
 
         <textarea
-          className="w-full px-5 py-4 text-base leading-relaxed rounded-2xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 shadow-sm transition duration-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 mb-6 resize-none"
+          className={`w-full p-4 rounded-xl mb-4 resize-none border transition-all duration-300 outline-none ${darkMode
+            ? "bg-gray-800 border-gray-600 text-white focus:ring-purple-500"
+            : "bg-white border-gray-300 text-gray-900 focus:ring-blue-400"
+            }`}
           rows={6}
           placeholder="Enter your text here (each line will be translated)..."
           value={inputText}
@@ -109,7 +119,10 @@ export default function TranslatePage() {
         />
 
         <select
-          className="w-full px-5 py-3 text-base rounded-2xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm transition duration-300 mb-6"
+          className={`p-3 rounded-xl outline-none w-full mb-4 transition-all duration-300 ${darkMode
+            ? "bg-gray-800 border border-gray-600 text-white focus:ring-purple-500"
+            : "bg-white border border-gray-300 text-gray-900 focus:ring-blue-400"
+            }`}
           value={targetLang}
           onChange={(e) => setTargetLang(e.target.value)}
         >
@@ -122,81 +135,73 @@ export default function TranslatePage() {
         <button
           onClick={handleTranslate}
           disabled={loading}
-          className={`w-full py-3 text-lg font-semibold rounded-xl text-white transition-all ${
-            loading
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-          }`}
+          className={`transition-all duration-200 text-white px-4 py-3 rounded-xl w-full font-semibold shadow-md ${loading
+            ? "bg-gray-400 cursor-not-allowed"
+            : darkMode
+              ? "bg-purple-600 hover:bg-purple-700"
+              : "bg-blue-600 hover:bg-blue-700"
+            }`}
         >
           {loading ? "Translating..." : "Translate"}
         </button>
 
         {translatedText.length > 0 && (
-          <div className="mt-10 bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl shadow-inner border border-gray-200 dark:border-gray-700 transition-all">
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center gap-2">
-              <Languages className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              Translated Results
-            </h2>
-            <ul className="space-y-6">
-              {translatedText.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="bg-white dark:bg-gray-900 p-5 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 transition hover:shadow-lg"
-                >
-                  <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-500 dark:text-gray-400">
-                    <MessageSquareText className="w-4 h-4" />
-                    Original Text
-                  </div>
-                  <p className="text-base text-gray-700 dark:text-gray-300 mb-4">
-                    {item.source_text}
-                  </p>
+          <div className="mt-8 space-y-6">
+            {translatedText.map((item, idx) => (
+              <div key={idx} className={`rounded-xl p-5 shadow-md border transition-all ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-300"}`}>
+                <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-400">
+                  <MessageSquareText className="w-4 h-4" />
+                  Original
+                </div>
+                <p className={`text-base mb-4 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                  {item.source_text}
+                </p>
 
-                  <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-500 dark:text-gray-400">
-                    <Languages className="w-4 h-4" />
-                    Translated
-                  </div>
-                  <p className="text-lg font-medium text-gray-900 dark:text-purple-200 mb-4">
-                    {item.translated_text}
-                  </p>
+                <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-400">
+                  <Languages className="w-4 h-4" />
+                  Translated
+                </div>
+                <p className={`text-lg font-medium mb-4 ${darkMode ? "text-purple-200" : "text-purple-700"}`}>
+                  {item.translated_text}
+                </p>
 
-                  <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    onClick={() => speak(item.translated_text, targetLang)}
+                    className="inline-flex items-center gap-2 text-sm font-medium bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition"
+                  >
+                    <Volume2 className="w-4 h-4" />
+                    Read Aloud
+                  </button>
+
+                  <button
+                    onClick={() => handleCopy(item.translated_text, idx)}
+                    className="inline-flex items-center gap-2 text-sm font-medium bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition"
+                  >
+                    <ClipboardCopy className="w-4 h-4" />
+                    Copy Text
+                  </button>
+
+                  <button
+                    onClick={() => downloadAsPDF(item.source_text, item.translated_text, idx)}
+                    className="inline-flex items-center gap-2 text-sm font-medium bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition"
+                  >
+                    <Download className="w-4 h-4" />
+                    PDF
+                  </button>
+
+                  {copiedIndexes.includes(idx) && (
                     <button
-                      onClick={() => speak(item.translated_text, targetLang)}
-                      className="inline-flex items-center gap-2 text-sm font-medium bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition"
+                      onClick={() => (window.location.href = "/convert")}
+                      className="inline-flex items-center gap-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
                     >
-                      <Volume2 className="w-4 h-4" />
-                      Read Aloud
+                      <VideoIcon className="w-4 h-4" />
+                      Export as MP3
                     </button>
-
-                    <button
-                      onClick={() => handleCopy(item.translated_text, idx)}
-                      className="inline-flex items-center gap-2 text-sm font-medium bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition"
-                    >
-                      <ClipboardCopy className="w-4 h-4" />
-                      Copy Text
-                    </button>
-
-                    <button
-                      onClick={() => downloadAsPDF(item.source_text, item.translated_text, idx)}
-                      className="inline-flex items-center gap-2 text-sm font-medium bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition"
-                    >
-                      <Download className="w-4 h-4" />
-                      PDF
-                    </button>
-
-                    {copiedIndexes.includes(idx) && (
-                      <button
-                        onClick={() => (window.location.href = "/convert")}
-                        className="inline-flex items-center gap-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition"
-                      >
-                        <VideoIcon className="w-4 h-4" />
-                        Export as MP3
-                      </button>
-                    )}
-                  </div>
-                </li>
-              ))}
-            </ul>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
