@@ -99,6 +99,7 @@ export default function Navbar() {
                                     : "text-white/90 hover:text-white hover:bg-white/10"
                             }`}
                         >
+                            
                             {link.label}
                         </Link>
                     ))}
