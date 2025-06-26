@@ -48,7 +48,7 @@ const pages = [
 export default function NavigationPage() {
     const { darkMode, toggleDarkMode } = useTheme();
     return (
-        <div className="bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-black text-gray-900 dark:text-white px-6 pt-16">
+        <div className="bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-black text-gray-900 dark:text-white px-6 py-16">
             {/* Page Title with Icon */}
             
             <div className="flex justify-center items-center gap-3 mb-12">
